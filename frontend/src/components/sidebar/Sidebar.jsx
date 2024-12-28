@@ -8,7 +8,6 @@ import {
   SubMenu,
 } from 'react-pro-sidebar';
 import {
-  FaTachometerAlt,
   FaUserCircle,
   FaSignOutAlt,
   FaUserCog,
@@ -16,11 +15,9 @@ import {
 } from 'react-icons/fa';
 import { useAuthContext } from '../../context/AuthContext';
 import AccountSidebar from './AccountSidebar';
-import { Button } from 'flowbite-react';
-import MainLayout from '../../Layout/MainLayout';
+import MainLayout from '../../layout/MainLayout';
 import { MdAdminPanelSettings } from 'react-icons/md';
 import useCheckPermissions from '../../hooks/useCheckPermissions';
-import { LiaMapSolid } from 'react-icons/lia';
 import { TbMapStar } from 'react-icons/tb';
 import { BiSolidContact } from 'react-icons/bi';
 import ActionButtons from '../ActionButtons/ActionButtons';
@@ -35,7 +32,7 @@ const themes = {
       menuContent: '#fff',
       icon: '#0a3042',
       hover: {
-        backgroundColor: '#64ee85',
+        backgroundColor: '#ff373d',
         color: '#fff',
       },
       disabled: {
@@ -43,7 +40,7 @@ const themes = {
       },
       active: {
         color: '#FFF',
-        backgroundColor: '#64ee85',
+        backgroundColor: '#ff373d',
       },
     },
   },
@@ -173,7 +170,7 @@ const Sidebar = ({ children }) => {
   };
 
   const isUsersPermission = useCheckPermissions('view_users');
-  const isAccountPermission = useCheckPermissions('view_account');
+  const isProfilePermission = useCheckPermissions('view_profile');
   const isRolesPermission = useCheckPermissions('view_roles');
 
   return (
@@ -255,10 +252,10 @@ const Sidebar = ({ children }) => {
                   )}
                 </SubMenu>
               )}
-              {isAccountPermission && (
+              {isProfilePermission && (
                 <MenuItem
-                  component={<Link to={'/account-settings'} />}
-                  active={isActivePath('/account-settings')}
+                  component={<Link to={'/profile-settings'} />}
+                  active={isActivePath('/profile-settings')}
                   icon={<FaUserCog size={23} />}
                 >
                   Editar Perfil
@@ -267,26 +264,6 @@ const Sidebar = ({ children }) => {
             </Menu>
           </div>
           <div className="p-4">
-            {/* <Button
-              type="button"
-              color={'light'}
-              className="w-full border-none truncate flex justify-start items-center"
-              onClick={logout}
-            >
-              <div
-                className="w-full"
-                style={{
-                  display: 'flex',
-                  justifyContent: 'start',
-                  alignItems: 'center',
-                }}
-              >
-                <i>
-                  <FaSignOutAlt size={18} className="text-lg mt-0.5" />
-                </i>
-                {collapsed ? null : <span className="ml-4">Cerrar Sesión</span>}
-              </div>
-            </Button> */}
             <ActionButtons
               extraActions={[
                 {

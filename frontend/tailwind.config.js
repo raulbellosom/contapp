@@ -6,22 +6,22 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Jaldi', 'sans-serif'],
+        sans: ['Roboto', 'sans-serif'],
       },
       colors: {
-        'planymaps-danger': '#EF476F',
-        'planymaps-warning': '#FFD166',
-        'planymaps-success': '#06D6A0',
-        'planymaps-info': '#118AB2',
-        'planymaps-dark': '#141010',
-        'planymaps-light': '#FFFFFE',
-        'planymaps-gray': '#e7e5e4',
-        'planymaps-gray-dark': '#44403c',
-        'planymaps-primary': '#64ee85',
-        'planymaps-secondary': '#0a3042',
-        'planymaps-primary-light': '#92f3a9',
-        'planymaps-primary-dark': '#36e961',
-        'planymaps-secondary-light': '#11506e',
+        'contapp-danger': '#EF476F',
+        'contapp-warning': '#FFD166',
+        'contapp-success': '#06D6A0',
+        'contapp-info': '#118AB2',
+        'contapp-dark': '#141010',
+        'contapp-light': '#FFFFFE',
+        'contapp-gray': '#e7e5e4',
+        'contapp-gray-dark': '#44403c',
+        'contapp-primary': '#ff373d',
+        'contapp-secondary': '#363636',
+        'contapp-primary-light': '#ff6a6e',
+        'contapp-primary-dark': '#ff040c',
+        'contapp-secondary-light': '#ffffff',
       },
       fontSize: {
         xxs: '0.5rem', // Nuevo estilo para texto muy pequeño

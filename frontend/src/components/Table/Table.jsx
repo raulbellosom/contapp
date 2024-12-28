@@ -12,7 +12,7 @@ const Table = ({ columns, children, sortBy, sortedBy, selectAll }) => {
               <T.HeadCell
                 key={col?.id}
                 scope="col"
-                className={`${col?.order || col?.id === 'checkbox' ? '' : 'pointer-events-none'} p-4 bg-planymaps-secondary text-white ${col?.id !== 'checkbox' ? 'cursor-pointer hover:bg-planymaps-secondary-light hover:text-white transition-colors ease-in-out duration-100' : ''} ${col?.id === sortedBy && 'bg-planymaps-secondary-light'} ${col?.classes}`}
+                className={`${col?.order || col?.id === 'checkbox' ? '' : 'pointer-events-none'} p-4 bg-contapp-secondary text-white ${col?.id !== 'checkbox' ? 'cursor-pointer hover:bg-contapp-secondary-light hover:text-white transition-colors ease-in-out duration-100' : ''} ${col?.id === sortedBy && 'bg-contapp-secondary-light'} ${col?.classes}`}
                 onClick={col?.id !== 'checkbox' ? () => sortBy(col.id) : null}
               >
                 <span
@@ -31,7 +31,7 @@ const Table = ({ columns, children, sortBy, sortedBy, selectAll }) => {
                   )}
                   {col?.id === 'checkbox' && (
                     <Checkbox
-                      className="cursor-pointer text-planymaps-primary focus:ring-planymaps-primary"
+                      className="cursor-pointer text-contapp-primary focus:ring-contapp-primary"
                       onChange={selectAll}
                     />
                   )}

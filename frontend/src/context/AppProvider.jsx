@@ -4,7 +4,7 @@ import UserProvider from './UserProvider';
 import LoadingProvider from './LoadingProvider';
 import RoleProvider from './RoleProvider';
 import PermissionProvider from './PermissionProvider';
-import MapsProvider from './MapsProvider';
+import AccountProvider from './AccountProvider';
 
 const SecurityProvider = ({ children }) => (
   <AuthProvider>
@@ -16,7 +16,7 @@ const SecurityProvider = ({ children }) => (
 
 const DataProvider = ({ children }) => (
   <UserProvider>
-    <MapsProvider>{children}</MapsProvider>
+    <AccountProvider>{children}</AccountProvider>
   </UserProvider>
 );
 

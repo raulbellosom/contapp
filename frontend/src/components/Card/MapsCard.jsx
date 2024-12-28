@@ -12,8 +12,8 @@ const MapsCard = ({ map, actions, collapsedActions, role }) => {
     <article
       className={classNames(
         'flex rounded-lg rounded-l-xl shadow-sm h-full max-h-[38dvh] 2xl:max-h-[38dvh] hover:shadow-lg transition ease-in-out duration-200',
-        map.visibility === 'private' && 'bg-planymaps-secondary-light',
-        map.visibility === 'public' && 'bg-planymaps-primary',
+        map.visibility === 'private' && 'bg-contapp-secondary-light',
+        map.visibility === 'public' && 'bg-contapp-primary',
       )}
     >
       <div className="w-[98%] flex border border-neutral-300 bg-neutral-50 flex-col rounded-md justify-between">
@@ -30,8 +30,8 @@ const MapsCard = ({ map, actions, collapsedActions, role }) => {
               <span
                 className={`px-3 py-1 text-xs md:text-base font-semibold rounded-full text-white ${
                   map.visibility === 'private'
-                    ? 'bg-planymaps-secondary-light'
-                    : 'bg-planymaps-primary'
+                    ? 'bg-contapp-secondary-light'
+                    : 'bg-contapp-primary'
                 }`}
               >
                 {map?.visibility === 'private' ? 'Privado' : 'Público'}

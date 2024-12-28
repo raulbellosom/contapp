@@ -1,5 +1,5 @@
 {
-  "name": "planymaps-backend",
+  "name": "contapp-backend",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
@@ -14,11 +14,11 @@
     "generate": "npx prisma generate",
     "pull": "npx prisma db pull",
     "preprod": "npm run generate && npm run migrate && npm run seed",
-    "prod": "npm run preprod && pm2 start src/index.js --name planymaps --no-autorestart && pm2 logs",
-    "prod:dev": "npm run preprod && pm2 start src/index.js --name planymaps-backend-dev --no-autorestart && pm2 logs"
+    "prod": "npm run preprod && pm2 start src/index.js --name contapp --no-autorestart && pm2 logs",
+    "prod:dev": "npm run preprod && pm2 start src/index.js --name contapp-backend-dev --no-autorestart && pm2 logs"
   },
   "dependencies": {
-    "@prisma/client": "^5.19.1",
+    "@prisma/client": "^6.1.0",
     "axios": "^1.7.4",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.4",
-    "prisma": "^5.19.1"
+    "prisma": "^6.1.0"
   },
   "keywords": [],
   "author": "Raul Belloso M",

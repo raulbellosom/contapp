@@ -5,16 +5,16 @@ import ActionButtons from '../../components/ActionButtons/ActionButtons';
 import { RiImageEditLine, RiLockPasswordFill } from 'react-icons/ri';
 import { MdImageSearch, MdPassword } from 'react-icons/md';
 import { LuImageOff } from 'react-icons/lu';
-import AccountFields from '../../components/AccountFields/AccountFields';
+import ProfileFields from '../../components/ProfileFields/ProfileFields';
 import ModalForm from '../../components/Modals/ModalForm';
-import ChangePasswordForm from '../../components/AccountFields/ChangePassword/ChangePasswordForm';
+import ChangePasswordForm from '../../components/ProfileFields/ChangePassword/ChangePasswordForm';
 import { FaSave } from 'react-icons/fa';
 import { IoMdClose } from 'react-icons/io';
 import { AiFillEdit } from 'react-icons/ai';
 import withPermission from '../../utils/withPermissions';
 import useCheckPermissions from '../../hooks/useCheckPermissions';
 
-const Account = () => {
+const Profile = () => {
   const inputRef = useRef(null);
   const { user, updateProfileImage, updateProfile, updatePassword } =
     useAuthContext();
@@ -44,7 +44,7 @@ const Account = () => {
           icon: RiImageEditLine,
           action: () => handleImageUpload(),
           filled: image ? true : false,
-          color: 'planymaps-primary',
+          color: 'contapp-primary',
         },
       ]);
     } else {
@@ -177,14 +177,14 @@ const Account = () => {
     }
   };
 
-  const isEditAccountPermission = useCheckPermissions('edit_account');
+  const isEditProfilePermission = useCheckPermissions('edit_profile');
   const isChangePassPermission = useCheckPermissions('change_password');
-  const isUpdateImagePermission = useCheckPermissions('change_account_image');
+  const isUpdateImagePermission = useCheckPermissions('change_profile_image');
 
   return (
     <div className="flex flex-col gap-6 pt-10">
       <section className="bg-white p-4 rounded-lg">
-        <h1 className="text-2xl font-bold text-planymaps-primary mb-2">
+        <h1 className="text-2xl font-bold text-contapp-primary mb-2">
           Mi cuenta
         </h1>
         <form className="flex flex-col items-center justify-center gap-4">
@@ -201,7 +201,7 @@ const Account = () => {
               />
             )}
           </div>
-          <div className="rounded-full min-h-36 min-w-36 ring-4 ring-planymaps-primary p-1.5">
+          <div className="rounded-full min-h-36 min-w-36 ring-4 ring-contapp-primary p-1.5">
             <ImageViewer
               containerClassNames={
                 'rounded-full overflow-hidden min-w-36 min-h-36 object-cover'
@@ -222,7 +222,7 @@ const Account = () => {
             {user &&
               userFields.map((field) => {
                 return (
-                  <AccountFields
+                  <ProfileFields
                     key={field.id}
                     id={field.id}
                     label={field.label}
@@ -261,7 +261,7 @@ const Account = () => {
                   {
                     label: 'Editar',
                     icon: AiFillEdit,
-                    action: isEditAccountPermission.hasPermission
+                    action: isEditProfilePermission.hasPermission
                       ? () => setIsEditing(true)
                       : null,
                     color: 'stone',
@@ -312,6 +312,6 @@ const Account = () => {
   );
 };
 
-const ProtectedAccountView = withPermission(Account, 'view_account');
+const ProtectedProfileView = withPermission(Profile, 'view_profile');
 
-export default ProtectedAccountView;
+export default ProtectedProfileView;

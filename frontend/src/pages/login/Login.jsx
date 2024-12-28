@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { Field, Form, FormikProvider, useFormik } from 'formik';
 import * as Yup from 'yup';
 import AuthContext from '../../context/AuthContext';
-import Logo from '../../assets/logos/logo.png';
-import LogoWhite from '../../assets/logos/logo.png';
-import BgLogin from '../../assets/bg/BgLogin.jpg';
+import Logo from '../../assets/logos/icon.png';
+import LogoWhite from '../../assets/logos/icon_white.png';
+import BgLogin from '../../assets/bg/login_bg.webp';
 import { FaSignInAlt } from 'react-icons/fa';
 import TextInput from '../../components/Inputs/TextInput';
 import { MdOutlineAlternateEmail, MdOutlinePassword } from 'react-icons/md';
@@ -47,15 +47,15 @@ const Login = () => {
           }}
         >
           <div className="hidden h-dvh md:flex justify-start items-end bg-gradient-to-b from-transparent w-full to-black/35">
-            <div className="p-2 flex flex-col items-center gap-2">
-              <img src={LogoWhite} alt="Logo" className="h-auto w-16" />
-              <h1 className="text-lg text-center text-planymaps-primary-light font-bold tracking-wider">
-                planymaps
+            <div className="p-2 flex items-center gap-2">
+              <img src={LogoWhite} alt="Logo" className="h-auto w-6" />
+              <h1 className="text-2xl text-center text-contapp-light font-bold tracking-wider">
+                ContAPP
               </h1>
             </div>
           </div>
         </div>
-        <div className="absolute md:relative flex flex-col gap-4 justify-start bg-black/35 md:bg-white p-8 pt-14 rounded shadow-lg w-full mx-auto md:max-w-md h-dvh">
+        <div className="absolute md:relative flex flex-col gap-4 justify-start bg-black/35 md:bg-white p-6 pt-14 rounded shadow-lg w-full mx-auto md:max-w-md h-dvh">
           <div className="flex flex-col items-center justify-center pb-2">
             <img src={LogoWhite} alt="Logo" className="h-auto w-20 md:hidden" />
             <img
@@ -63,14 +63,14 @@ const Login = () => {
               alt="Logo"
               className="h-auto w-20 hidden md:block"
             />
-            <h1 className="text-3xl text-center mb-4 font-black tracking-wider md:text-planymaps-primary">
-              planymaps
+            <h1 className="text-3xl text-center mb-4 font-black tracking-wider md:text-contapp-primary">
+              ContAPP
             </h1>
           </div>
           <h2 className="text-2xl font-semibold">Iniciar Sesión</h2>
           <Form
             ref={formRef}
-            className="space-y-4"
+            className="flex flex-col gap-4 w-full"
             onSubmit={formik.handleSubmit}
           >
             <Field
@@ -94,7 +94,7 @@ const Login = () => {
                 theme={{
                   color: {
                     primary:
-                      'bg-planymaps-primary hover:bg-planymaps-primary-dark text-white',
+                      'bg-contapp-primary hover:bg-contapp-primary-dark text-white',
                   },
                 }}
                 color={'primary'}

@@ -5,19 +5,17 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom';
-import AuthContext, { useAuthContext } from '../context/AuthContext';
+import { useAuthContext } from '../context/AuthContext';
 import LoadingModal from '../components/loadingModal/LoadingModal';
 import Sidebar from '../components/sidebar/Sidebar';
 import ProtectedRoute from './ProtectedRoute';
 
 import Login from '../pages/login/Login';
-import Account from '../pages/account/Account';
+import Profile from '../pages/profile/Profile';
 import Users from '../pages/users/Users';
 import NotFound from '../pages/notFound/NotFound';
 import Roles from '../pages/roles/Roles';
-import Maps from '../pages/maps/Maps';
-import Contacts from '../pages/contacts/Contacts';
-import ViewMap from '../pages/maps/ViewMap';
+import Dashboard from '../pages/dashboard/Dashboard';
 
 const AppRouter = () => {
   const { user, loading } = useAuthContext();
@@ -45,13 +43,9 @@ const AuthorizedRoute = ({ user }) => {
             <Sidebar>
               <Routes>
                 <Route element={<ProtectedRoute user={user} />}>
-                  <Route path="/" element={<Maps />} />
-                  <Route path="/maps/view/:id" element={<ViewMap />} />
-                  <Route path="/maps" element={<Maps />} />
+                  <Route path="/" element={<Dashboard />} />
                   <Route path="/users" element={<Users />} />
-                  <Route path="/contacts" element={<Contacts />} />
-
-                  <Route path="/account-settings" element={<Account />} />
+                  <Route path="/profile-settings" element={<Profile />} />
                   <Route path="/roles" element={<Roles />} />
                   <Route
                     path="/login"

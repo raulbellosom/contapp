@@ -9,7 +9,11 @@ import pingRoutes from "./routes/ping.routes.js";
 import permissionRoutes from "./routes/permission.routes.js";
 import roleRoutes from "./routes/role.routes.js";
 import rolePermissionRoutes from "./routes/rolePermission.routes.js";
-import routes from "./routes/routes.js";
+import accountRoutes from "./routes/account.routes.js";
+import transactionRoutes from "./routes/transaction.routes.js";
+import categoryRoutes from "./routes/category.routes.js";
+import bankRoutes from "./routes/bank.routes.js";
+import recurringPaymentRoutes from "./routes/recurringPayment.routes.js";
 
 dotenv.config();
 
@@ -29,8 +33,12 @@ app.use("/api/users", userRoutes);
 app.use("/api/permissions", permissionRoutes);
 app.use("/api/roles", roleRoutes);
 app.use("/api/role-permissions", rolePermissionRoutes);
+app.use("/api/accounts", accountRoutes);
+app.use("/api/transactions", transactionRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/banks", bankRoutes);
+app.use("/api/recurring-payments", recurringPaymentRoutes);
 app.use("/api/ping", pingRoutes);
-app.use("/api", routes);
 app.use("/api/uploads", express.static(path.join(__dirname, "uploads")));
 
 const PORT = process.env.PORT || 4000;

@@ -28,9 +28,9 @@ const InventoryProperty = ({ label, value, icon: Icon, onSearch }) => {
           className={classNames(
             'relative text-xs md:text-sm 2xl:text-base p-1.5 rounded-md text-white flex items-center gap-2 justify-start min-h-6 w-full',
             {
-              'bg-planymaps-primary': value === 'ALTA',
-              'bg-planymaps-danger': value === 'BAJA',
-              'bg-planymaps-warning': value === 'PROPUESTA DE BAJA',
+              'bg-contapp-primary': value === 'ALTA',
+              'bg-contapp-danger': value === 'BAJA',
+              'bg-contapp-warning': value === 'PROPUESTA DE BAJA',
             },
           )}
         >

@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import Icon from '../../assets/logos/logo.png';
+import Icon from '../../assets/logos/icon.png';
 import ImageViewer from '../ImageViewer/ImageViewer';
 import Profile from '../../assets/images/profile.png';
 
@@ -12,9 +12,9 @@ const AccountSidebar = ({ name, role, photo, collapsed }) => {
       >
         <img src={Icon} alt="ICON" className="h-auto w-10" />
         <span
-          className={`text-2xl text-planymaps-primary font-extrabold mb-2 truncate`}
+          className={`text-2xl text-contapp-primary font-extrabold mb-2 truncate`}
         >
-          planymaps
+          ContAPP
         </span>
       </div>
       <div
@@ -40,11 +40,7 @@ const AccountSidebar = ({ name, role, photo, collapsed }) => {
           >
             {name}
           </h2>
-          <p
-            className={classNames(
-              'text-planymaps-secondary-light w-full truncate text-xs',
-            )}
-          >
+          <p className={classNames('text-neutral-400 w-full truncate text-xs')}>
             {role}
           </p>
         </div>

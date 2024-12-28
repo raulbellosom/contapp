@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-const AccountFields = ({
+const ProfileFields = ({
   id,
   label,
   name,
@@ -39,4 +39,4 @@ const AccountFields = ({
   );
 };
 
-export default AccountFields;
+export default ProfileFields;

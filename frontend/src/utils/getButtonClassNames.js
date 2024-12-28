@@ -10,14 +10,14 @@ export const getButtonClassNames = (
     'w-full md:w-fit h-9 xl:h-10 text-lg transition ease-in-out duration-200 p-2 xl:p-4 flex items-center justify-center rounded-md border border-neutral-200 text-neutral-600';
 
   let notFilledClasses = {
-    'hover:bg-planymaps-danger hover:text-white':
+    'hover:bg-contapp-danger hover:text-white':
       color === 'danger' && !disabled,
-    'hover:bg-planymaps-warning hover:text-white':
+    'hover:bg-contapp-warning hover:text-white':
       color === 'warning' && !disabled,
-    'hover:bg-planymaps-success hover:text-white':
+    'hover:bg-contapp-success hover:text-white':
       color === 'success' && !disabled,
-    'hover:bg-planymaps-info hover:text-white': color === 'info' && !disabled,
-    'hover:bg-planymaps-dark hover:text-white': color === 'dark' && !disabled,
+    'hover:bg-contapp-info hover:text-white': color === 'info' && !disabled,
+    'hover:bg-contapp-dark hover:text-white': color === 'dark' && !disabled,
     'hover:bg-red-500 hover:text-white': color === 'red' && !disabled,
     'hover:bg-yellow-300 hover:text-white': color === 'yellow' && !disabled,
     'hover:bg-cyan-500 hover:text-white': color === 'cyan' && !disabled,
@@ -40,17 +40,17 @@ export const getButtonClassNames = (
     'hover:bg-neutral-200 hover:text-black': color === 'neutral' && !disabled,
     'hover:bg-white text-black': color === 'white' && !disabled,
     'hover:bg-black hover:text-white': color === 'black' && !disabled,
-    'hover:bg-planymaps-primary hover:text-white':
+    'hover:bg-contapp-primary hover:text-white':
       color === 'primary' && !disabled,
-    'hover:bg-planymaps-secondary hover:text-white':
+    'hover:bg-contapp-secondary hover:text-white':
       color === 'secondary' && !disabled,
   };
   let filledClasses = {
-    'bg-planymaps-success text-white border-planymaps-success hover:bg-planymaps-success':
+    'bg-contapp-success text-white border-contapp-success hover:bg-contapp-success':
       color === 'success',
-    'bg-planymaps-info text-white border-planymaps-info hover:bg-planymaps-info':
+    'bg-contapp-info text-white border-contapp-info hover:bg-contapp-info':
       color === 'info',
-    'bg-planymaps-dark text-white border-planymaps-dark hover:bg-planymaps-dark':
+    'bg-contapp-dark text-white border-contapp-dark hover:bg-contapp-dark':
       color === 'dark',
     'bg-red-500 text-white border-red-500 hover:bg-red-700': color === 'red',
     'bg-yellow-300 text-white border-yellow-300 hover:bg-yellow-400':
@@ -94,9 +94,9 @@ export const getButtonClassNames = (
       color === 'neutral',
     'bg-black text-white border-black hover:border-gray-200 hover:text-black hover:bg-stone-200':
       color === 'black',
-    'bg-planymaps-primary text-white border-planymaps-primary hover:bg-planymaps-primary-dark':
+    'bg-contapp-primary text-white border-contapp-primary hover:bg-contapp-primary-dark':
       color === 'primary',
-    'bg-planymaps-secondary text-white border-planymaps-secondary hover:bg-planymaps-secondary-light':
+    'bg-contapp-secondary text-white border-contapp-secondary hover:bg-contapp-secondary-light':
       color === 'secondary',
   };
 
