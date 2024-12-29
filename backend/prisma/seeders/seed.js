@@ -127,7 +127,7 @@ async function seedBanks() {
         data: {
           name: bank,
           country: "México",
-          logo: `/uploads/public/banks/logos/${bank
+          logo: `uploads/public/banks/logos/${bank
             .toLowerCase()
             .replace(/\s+/g, "_")}.jpg`,
         },

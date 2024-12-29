@@ -7,17 +7,21 @@ import {
   updateBank,
 } from "../controllers/bank.controller.js";
 import { protect } from "../middleware/authMiddleware.js";
+import upload from "../middleware/uploadMiddleware.js";
 
 const router = express.Router();
 
 // Ruta para obtener todos los bancos y crear un nuevo banco
-router.route("/").get(protect, getBanks).post(protect, createBank);
+router
+  .route("/")
+  .get(protect, getBanks)
+  .post(upload.single("logo"), createBank);
 
 // Ruta para obtener, actualizar o eliminar un banco específico por ID
 router
   .route("/:id")
   .get(protect, getBankById)
-  .put(protect, updateBank)
+  .put(upload.single("logo"), updateBank)
   .delete(protect, deleteBank);
 
 export default router;

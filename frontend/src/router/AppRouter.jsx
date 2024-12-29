@@ -16,6 +16,8 @@ import Users from '../pages/users/Users';
 import NotFound from '../pages/notFound/NotFound';
 import Roles from '../pages/roles/Roles';
 import Dashboard from '../pages/dashboard/Dashboard';
+import Account from '../pages/account/Account';
+import Banks from '../pages/bank/Banks';
 
 const AppRouter = () => {
   const { user, loading } = useAuthContext();
@@ -47,6 +49,8 @@ const AuthorizedRoute = ({ user }) => {
                   <Route path="/users" element={<Users />} />
                   <Route path="/profile-settings" element={<Profile />} />
                   <Route path="/roles" element={<Roles />} />
+                  <Route path="/accounts" element={<Account />} />
+                  <Route path="/banks" element={<Banks />} />
                   <Route
                     path="/login"
                     element={

@@ -11,15 +11,12 @@ const FileInput = ({
   ...props
 }) => {
   const handleChange = (e) => {
-    const newFiles = Array.from(e.target.files);
-    const currentFiles = field.value || [];
-    const combinedFiles = [...currentFiles, ...newFiles];
-    setFieldValue(field.name, combinedFiles);
+    const file = e.target.files[0];
+    setFieldValue(field.name, file);
   };
 
-  const removeFile = (index) => {
-    const updatedFiles = field.value.filter((_, i) => i !== index);
-    setFieldValue(field.name, updatedFiles);
+  const removeFile = () => {
+    setFieldValue(field.name, null);
   };
 
   return (
@@ -32,24 +29,17 @@ const FileInput = ({
       />
       <File
         id={props.id || props.name}
-        multiple={props.multiple}
         helperText={props.helperText || ''}
         accept={props.accept || ''}
         color={touched[field.name] && errors[field.name] ? 'failure' : ''}
         className="mt-1"
         onChange={handleChange}
       />
-      <div className="mt-2 max-h-48 md:max-h-full grid gap-1 overflow-y-auto bg-neutral-50 p-2">
-        {field.value &&
-          field.value.length > 0 &&
-          field.value?.map((file, index) => (
-            <FileIcon
-              key={index}
-              file={file}
-              onRemove={() => removeFile(index)}
-            />
-          ))}
-      </div>
+      {field.value && (
+        <div className="mt-2 flex items-center bg-neutral-50 p-2">
+          <FileIcon file={field.value} onRemove={removeFile} />
+        </div>
+      )}
       <ErrorMessage
         name={field.name}
         component="div"

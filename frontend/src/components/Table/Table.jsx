@@ -12,7 +12,7 @@ const Table = ({ columns, children, sortBy, sortedBy, selectAll }) => {
               <T.HeadCell
                 key={col?.id}
                 scope="col"
-                className={`${col?.order || col?.id === 'checkbox' ? '' : 'pointer-events-none'} p-4 bg-contapp-secondary text-white ${col?.id !== 'checkbox' ? 'cursor-pointer hover:bg-contapp-secondary-light hover:text-white transition-colors ease-in-out duration-100' : ''} ${col?.id === sortedBy && 'bg-contapp-secondary-light'} ${col?.classes}`}
+                className={`${col?.order || col?.id === 'checkbox' ? '' : 'pointer-events-none'} p-4 bg-contapp-secondary text-white ${col?.id !== 'checkbox' ? 'cursor-pointer hover:bg-contapp-primary-light hover:text-white transition-colors ease-in-out duration-100' : ''} ${col?.id === sortedBy && 'bg-contapp-primary-light'} ${col?.classes}`}
                 onClick={col?.id !== 'checkbox' ? () => sortBy(col.id) : null}
               >
                 <span

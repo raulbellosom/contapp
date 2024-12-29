@@ -7,11 +7,10 @@ export const getButtonClassNames = (
   className,
 ) => {
   const baseClasses =
-    'w-full md:w-fit h-9 xl:h-10 text-lg transition ease-in-out duration-200 p-2 xl:p-4 flex items-center justify-center rounded-md border border-neutral-200 text-neutral-600';
+    'w-full md:w-fit h-9 xl:h-10 text-sm md:text-base transition ease-in-out duration-200 p-2 xl:p-4 flex items-center justify-center rounded-md border border-neutral-200 text-neutral-600';
 
   let notFilledClasses = {
-    'hover:bg-contapp-danger hover:text-white':
-      color === 'danger' && !disabled,
+    'hover:bg-contapp-danger hover:text-white': color === 'danger' && !disabled,
     'hover:bg-contapp-warning hover:text-white':
       color === 'warning' && !disabled,
     'hover:bg-contapp-success hover:text-white':

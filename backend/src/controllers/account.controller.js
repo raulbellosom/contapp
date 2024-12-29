@@ -6,7 +6,7 @@ export const getAccounts = async (req, res) => {
     const userId = req.user.id; // Suponiendo que req.user contiene al usuario autenticado
     const accounts = await db.account.findMany({
       where: { userId },
-      include: { transactions: true }, // Incluye transacciones relacionadas
+      include: { transactions: true, bank: true }, // Incluye transacciones relacionadas
     });
     res.status(200).json(accounts);
   } catch (error) {
@@ -21,7 +21,7 @@ export const getAccountById = async (req, res) => {
   try {
     const account = await db.account.findUnique({
       where: { id },
-      include: { transactions: true },
+      include: { transactions: true, bank: true }, // Incluye transacciones y banco
     });
 
     if (account) {
@@ -36,12 +36,13 @@ export const getAccountById = async (req, res) => {
 
 // Crear una nueva cuenta
 export const createAccount = async (req, res) => {
-  const { name, type, balance, color } = req.body;
+  const { name, type, balance, color, bankId } = req.body;
   const userId = req.user.id;
 
   try {
     const newAccount = await db.account.create({
-      data: { name, type, balance, color, userId },
+      data: { name, type, balance, color, userId, bankId },
+      include: { transactions: true, bank: true },
     });
     res.status(201).json(newAccount);
   } catch (error) {
@@ -52,12 +53,13 @@ export const createAccount = async (req, res) => {
 // Actualizar una cuenta existente
 export const updateAccount = async (req, res) => {
   const { id } = req.params;
-  const { name, type, balance, color } = req.body;
+  const { name, type, balance, color, bankId } = req.body;
 
   try {
     const updatedAccount = await db.account.update({
       where: { id },
-      data: { name, type, balance, color },
+      data: { name, type, balance, color, bankId },
+      include: { transactions: true, bank: true },
     });
     res.status(200).json(updatedAccount);
   } catch (error) {

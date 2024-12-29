@@ -120,7 +120,10 @@ export const createTransaction = async (transaction) => {
 
 export const updateTransaction = async (transaction) => {
   try {
-    const { data } = await api.put(`/transactions/${transaction.id}`, transaction);
+    const { data } = await api.put(
+      `/transactions/${transaction.id}`,
+      transaction,
+    );
     return data;
   } catch (error) {
     console.error(error);
@@ -212,8 +215,13 @@ export const getBankById = async (id) => {
 
 export const createBank = async (bank) => {
   try {
-    const { data } = await api.post('/banks', bank);
-    return data;
+    let data = new FormData();
+    data.append('name', bank.name);
+    data.append('country', bank.country);
+    data.append('logo', bank.logo);
+
+    const response = await api.post('/banks', data, headerFormData);
+    return response.data;
   } catch (error) {
     console.error(error);
     throw error;
@@ -222,8 +230,13 @@ export const createBank = async (bank) => {
 
 export const updateBank = async (bank) => {
   try {
-    const { data } = await api.put(`/banks/${bank.id}`, bank);
-    return data;
+    let data = new FormData();
+    data.append('name', bank.name);
+    data.append('country', bank.country);
+    data.append('logo', bank.logo);
+
+    const response = await api.put(`/banks/${bank.id}`, data, headerFormData);
+    return response.data;
   } catch (error) {
     console.error(error);
     throw error;
@@ -273,7 +286,10 @@ export const createRecurringPayment = async (payment) => {
 
 export const updateRecurringPayment = async (payment) => {
   try {
-    const { data } = await api.put(`/recurring-payments/${payment.id}`, payment);
+    const { data } = await api.put(
+      `/recurring-payments/${payment.id}`,
+      payment,
+    );
     return data;
   } catch (error) {
     console.error(error);

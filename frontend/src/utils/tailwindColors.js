@@ -1,0 +1,26 @@
+const tailwindColors = [
+  { label: 'Slate', value: '#475569' },
+  { label: 'Gray', value: '#4B5563' },
+  { label: 'Zinc', value: '#52525B' },
+  { label: 'Neutral', value: '#525252' },
+  { label: 'Stone', value: '#57534E' },
+  { label: 'Red', value: '#DC2626' },
+  { label: 'Orange', value: '#EA580C' },
+  { label: 'Amber', value: '#D97706' },
+  { label: 'Yellow', value: '#CA8A04' },
+  { label: 'Lime', value: '#65A30D' },
+  { label: 'Green', value: '#16A34A' },
+  { label: 'Emerald', value: '#059669' },
+  { label: 'Teal', value: '#0D9488' },
+  { label: 'Cyan', value: '#0891B2' },
+  { label: 'Sky', value: '#0284C7' },
+  { label: 'Blue', value: '#2563EB' },
+  { label: 'Indigo', value: '#4F46E5' },
+  { label: 'Violet', value: '#7C3AED' },
+  { label: 'Purple', value: '#9333EA' },
+  { label: 'Fuchsia', value: '#C026D3' },
+  { label: 'Pink', value: '#DB2777' },
+  { label: 'Rose', value: '#E11D48' },
+];
+
+export default tailwindColors;

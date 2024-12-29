@@ -269,8 +269,8 @@ const Users = () => {
   const isRemoveUserPermission = useCheckPermissions('delete_users');
 
   return (
-    <div className="flex flex-col min-h-[100dvh] gap-3p-3 antialiased pt-12">
-      <div className="md:absolute md:top-2 md:left-16 w-full p-4 pb-0 md:p-0 md:pr-20">
+    <div className="flex flex-col h-auto gap-3 p-3 antialiased">
+      <div className="w-full">
         <TableHeader
           title={'Usuarios'}
           icon={FaUserShield}

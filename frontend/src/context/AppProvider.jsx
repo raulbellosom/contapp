@@ -5,6 +5,7 @@ import LoadingProvider from './LoadingProvider';
 import RoleProvider from './RoleProvider';
 import PermissionProvider from './PermissionProvider';
 import AccountProvider from './AccountProvider';
+import BankProvider from './BankProvider';
 
 const SecurityProvider = ({ children }) => (
   <AuthProvider>
@@ -16,7 +17,9 @@ const SecurityProvider = ({ children }) => (
 
 const DataProvider = ({ children }) => (
   <UserProvider>
-    <AccountProvider>{children}</AccountProvider>
+    <AccountProvider>
+      <BankProvider>{children}</BankProvider>
+    </AccountProvider>
   </UserProvider>
 );
 

@@ -19,3 +19,11 @@ export const parseToCurrency = (value, currency) => {
     currency: currency || 'MXN',
   });
 };
+
+export const parseMoney = (value) => {
+  if (!value) return '';
+  return value.toLocaleString('en-GB', {
+    style: 'currency',
+    currency: 'MXN',
+  });
+};

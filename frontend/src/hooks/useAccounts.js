@@ -14,7 +14,9 @@ export const useAccounts = () => {
   const queryClient = useQueryClient();
 
   // Fetch all accounts
-  const fetchAccounts = useQuery(['accounts'], getAccounts, {
+  const fetchAccounts = useQuery({
+    queryKey: ['accounts'],
+    queryFn: getAccounts,
     onSuccess: (data) => {
       dispatch({ type: 'SET_ACCOUNTS', payload: data });
     },
@@ -26,26 +28,29 @@ export const useAccounts = () => {
   };
 
   // Create a new account
-  const createNewAccount = useMutation(createAccount, {
+  const createNewAccount = useMutation({
+    mutationFn: createAccount,
     onSuccess: (newAccount) => {
       dispatch({ type: 'ADD_ACCOUNT', payload: newAccount });
-      queryClient.invalidateQueries(['accounts']);
+      queryClient.invalidateQueries({ queryKey: ['accounts'] });
     },
   });
 
   // Update an account
-  const modifyAccount = useMutation(updateAccount, {
+  const modifyAccount = useMutation({
+    mutationFn: updateAccount,
     onSuccess: (updatedAccount) => {
       dispatch({ type: 'UPDATE_ACCOUNT', payload: updatedAccount });
-      queryClient.invalidateQueries(['accounts']);
+      queryClient.invalidateQueries({ queryKey: ['accounts'] });
     },
   });
 
   // Delete an account
-  const removeAccount = useMutation(deleteAccount, {
+  const removeAccount = useMutation({
+    mutationFn: deleteAccount,
     onSuccess: (id) => {
       dispatch({ type: 'DELETE_ACCOUNT', payload: id });
-      queryClient.invalidateQueries(['accounts']);
+      queryClient.invalidateQueries({ queryKey: ['accounts'] });
     },
   });
 

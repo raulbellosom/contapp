@@ -12,11 +12,16 @@ import {
   FaSignOutAlt,
   FaUserCog,
   FaUserShield,
+  FaWallet,
 } from 'react-icons/fa';
 import { useAuthContext } from '../../context/AuthContext';
 import AccountSidebar from './AccountSidebar';
 import MainLayout from '../../layout/MainLayout';
-import { MdAdminPanelSettings } from 'react-icons/md';
+import {
+  MdAccountBalance,
+  MdAdminPanelSettings,
+  MdDashboard,
+} from 'react-icons/md';
 import useCheckPermissions from '../../hooks/useCheckPermissions';
 import { TbMapStar } from 'react-icons/tb';
 import { BiSolidContact } from 'react-icons/bi';
@@ -213,18 +218,25 @@ const Sidebar = ({ children }) => {
             />
             <Menu menuItemStyles={menuItemStyles}>
               <MenuItem
-                icon={<TbMapStar size={23} />}
+                icon={<MdDashboard size={23} />}
                 active={isActivePath('/')}
                 component={<Link to={'/'} />}
               >
-                Mis Mapas
+                Dashboard
               </MenuItem>
               <MenuItem
-                icon={<BiSolidContact size={23} />}
-                active={isActivePath('/contacts')}
-                component={<Link to={'/contacts'} />}
+                icon={<FaWallet size={23} />}
+                active={isActivePath('/accounts')}
+                component={<Link to={'/accounts'} />}
               >
-                Contactos
+                Cuentas
+              </MenuItem>
+              <MenuItem
+                icon={<MdAccountBalance size={23} />}
+                active={isActivePath('/banks')}
+                component={<Link to={'/banks'} />}
+              >
+                Bancos
               </MenuItem>
               {(isUsersPermission.hasPermission ||
                 isRolesPermission.hasPermission) && (
