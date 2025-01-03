@@ -7,7 +7,7 @@ import CategoryFormFields from '../../components/Category/CategoryFormFields';
 import {
   categoryFormSchema,
   categoryTypesValues,
-} from '../../components/Category/categoryFormSchema';
+} from '../../components/Category/CategoryFormSchema';
 import TableHeader from '../../components/Table/TableHeader';
 import { FaTags } from 'react-icons/fa';
 import { IoMdAdd } from 'react-icons/io';
