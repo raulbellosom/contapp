@@ -10,6 +10,7 @@ export const getAccounts = async (req, res) => {
     });
     res.status(200).json(accounts);
   } catch (error) {
+    console.log("Error on getAccounts:", error);
     res.status(500).json({ error: "Error al obtener cuentas." });
   }
 };
@@ -30,6 +31,7 @@ export const getAccountById = async (req, res) => {
       res.status(404).json({ error: "Cuenta no encontrada." });
     }
   } catch (error) {
+    console.log("Error on getAccountById:", error);
     res.status(500).json({ error: "Error al obtener cuenta." });
   }
 };
@@ -46,6 +48,7 @@ export const createAccount = async (req, res) => {
     });
     res.status(201).json(newAccount);
   } catch (error) {
+    console.log("Error on createAccount:", error);
     res.status(500).json({ error: "Error al crear cuenta." });
   }
 };
@@ -63,6 +66,7 @@ export const updateAccount = async (req, res) => {
     });
     res.status(200).json(updatedAccount);
   } catch (error) {
+    console.log("Error on updateAccount:", error);
     res.status(500).json({ error: "Error al actualizar cuenta." });
   }
 };
@@ -77,6 +81,7 @@ export const deleteAccount = async (req, res) => {
     });
     res.status(204).end();
   } catch (error) {
+    console.log("Error on deleteAccount:", error);
     res.status(500).json({ error: "Error al eliminar cuenta." });
   }
 };

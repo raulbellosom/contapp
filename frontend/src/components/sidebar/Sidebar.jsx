@@ -22,7 +22,10 @@ import {
   MdAccountBalance,
   MdAdminPanelSettings,
   MdDashboard,
+  MdOutlineCategory,
 } from 'react-icons/md';
+import { FaMoneyBillTransfer } from 'react-icons/fa6';
+
 import useCheckPermissions from '../../hooks/useCheckPermissions';
 import ActionButtons from '../ActionButtons/ActionButtons';
 
@@ -224,6 +227,13 @@ const Sidebar = ({ children }) => {
                 Dashboard
               </MenuItem>
               <MenuItem
+                icon={<FaMoneyBillTransfer size={23} />}
+                active={isActivePath('/transactions')}
+                component={<Link to={'/transactions'} />}
+              >
+                Transacciones
+              </MenuItem>
+              <MenuItem
                 icon={<FaWallet size={23} />}
                 active={isActivePath('/accounts')}
                 component={<Link to={'/accounts'} />}
@@ -236,6 +246,13 @@ const Sidebar = ({ children }) => {
                 component={<Link to={'/banks'} />}
               >
                 Bancos
+              </MenuItem>
+              <MenuItem
+                icon={<MdOutlineCategory size={23} />}
+                active={isActivePath('/categories')}
+                component={<Link to={'/categories'} />}
+              >
+                Categorías
               </MenuItem>
               {(isUsersPermission.hasPermission ||
                 isRolesPermission.hasPermission) && (

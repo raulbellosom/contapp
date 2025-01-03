@@ -18,6 +18,8 @@ import Roles from '../pages/roles/Roles';
 import Dashboard from '../pages/dashboard/Dashboard';
 import Account from '../pages/account/Account';
 import Banks from '../pages/bank/Banks';
+import Transaction from '../pages/transaction/Transaction';
+import Category from '../pages/category/Category';
 
 const AppRouter = () => {
   const { user, loading } = useAuthContext();
@@ -51,6 +53,8 @@ const AuthorizedRoute = ({ user }) => {
                   <Route path="/roles" element={<Roles />} />
                   <Route path="/accounts" element={<Account />} />
                   <Route path="/banks" element={<Banks />} />
+                  <Route path="/categories" element={<Category />} />
+                  <Route path="/transactions" element={<Transaction />} />
                   <Route
                     path="/login"
                     element={

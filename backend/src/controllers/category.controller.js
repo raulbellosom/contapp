@@ -3,9 +3,12 @@ import { db } from "../lib/db.js";
 // Obtener todas las categorías
 export const getCategories = async (req, res) => {
   try {
-    const categories = await db.category.findMany();
+    const categories = await db.category.findMany({
+      orderBy: { name: "asc" },
+    });
     res.status(200).json(categories);
   } catch (error) {
+    console.log("Error on getCategories:", error);
     res.status(500).json({ error: "Error al obtener categorías." });
   }
 };
@@ -25,6 +28,7 @@ export const getCategoryById = async (req, res) => {
       res.status(404).json({ error: "Categoría no encontrada." });
     }
   } catch (error) {
+    console.log("Error on getCategoryById:", error);
     res.status(500).json({ error: "Error al obtener categoría." });
   }
 };
@@ -39,6 +43,7 @@ export const createCategory = async (req, res) => {
     });
     res.status(201).json(newCategory);
   } catch (error) {
+    console.log("Error on createCategory:", error);
     res.status(500).json({ error: "Error al crear categoría." });
   }
 };
@@ -55,6 +60,7 @@ export const updateCategory = async (req, res) => {
     });
     res.status(200).json(updatedCategory);
   } catch (error) {
+    console.log("Error on updateCategory:", error);
     res.status(500).json({ error: "Error al actualizar categoría." });
   }
 };
@@ -80,6 +86,7 @@ export const deleteCategory = async (req, res) => {
     });
     res.status(204).end();
   } catch (error) {
+    console.log("Error on deleteCategory:", error);
     res.status(500).json({ error: "Error al eliminar categoría." });
   }
 };

@@ -6,6 +6,8 @@ import RoleProvider from './RoleProvider';
 import PermissionProvider from './PermissionProvider';
 import AccountProvider from './AccountProvider';
 import BankProvider from './BankProvider';
+import TransactionProvider from './TransactionProvider';
+import CategoryProvider from './CategoryProvider';
 
 const SecurityProvider = ({ children }) => (
   <AuthProvider>
@@ -18,7 +20,11 @@ const SecurityProvider = ({ children }) => (
 const DataProvider = ({ children }) => (
   <UserProvider>
     <AccountProvider>
-      <BankProvider>{children}</BankProvider>
+      <BankProvider>
+        <CategoryProvider>
+          <TransactionProvider>{children}</TransactionProvider>
+        </CategoryProvider>
+      </BankProvider>
     </AccountProvider>
   </UserProvider>
 );

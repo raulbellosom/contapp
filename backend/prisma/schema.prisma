@@ -52,7 +52,6 @@ model Account {
 model Transaction {
   id          String            @id @default(uuid())
   amount      Float
-  type        TransactionType
   date        DateTime          @default(now())
   description String?
   categoryId  String?
@@ -130,7 +129,6 @@ model RecurringPayment {
   id           String            @id @default(uuid())
   name         String            // Nombre del pago recurrente
   amount       Float
-  type         TransactionType
   frequency    Frequency         // Enum para la periodicidad
   startDate    DateTime          // Fecha de inicio del pago recurrente
   endDate      DateTime?         // Fecha de término (opcional)

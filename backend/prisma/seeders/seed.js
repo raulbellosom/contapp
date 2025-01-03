@@ -137,6 +137,66 @@ async function seedBanks() {
   }
 }
 
+async function seedCategories() {
+  const categories = [
+    {
+      name: "Comida",
+      type: "EXPENSE",
+      description: "Gastos en alimentos y restaurantes",
+    },
+    {
+      name: "Transporte",
+      type: "EXPENSE",
+      description: "Gastos en transporte público o privado",
+    },
+    {
+      name: "Medicina",
+      type: "EXPENSE",
+      description: "Gastos en medicamentos y servicios médicos",
+    },
+    {
+      name: "Salud",
+      type: "EXPENSE",
+      description: "Gastos en gimnasios, bienestar o terapias",
+    },
+    {
+      name: "Salario",
+      type: "INCOME",
+      description: "Ingreso por salario u honorarios",
+    },
+    {
+      name: "Venta",
+      type: "INCOME",
+      description: "Ingreso por ventas de productos o servicios",
+    },
+    {
+      name: "Inversión",
+      type: "INCOME",
+      description: "Ingreso por retornos de inversiones",
+    },
+    {
+      name: "Otros Ingresos",
+      type: "INCOME",
+      description: "Cualquier otro tipo de ingreso",
+    },
+    {
+      name: "Otros Gastos",
+      type: "EXPENSE",
+      description: "Cualquier otro tipo de gasto",
+    },
+  ];
+
+  for (const category of categories) {
+    const exists = await prisma.category.findFirst({
+      where: { name: category.name },
+    });
+    if (!exists) {
+      await prisma.category.create({ data: category });
+      console.log(`Categoría creada: ${category.name}`);
+    }
+  }
+}
+
 async function main() {
   console.log("Iniciando seeder...");
   await createRoles();
@@ -144,6 +204,7 @@ async function main() {
   await assignPermissionsToRoles();
   await createRootUser();
   await seedBanks();
+  await seedCategories(); // Llamar al seeder de categorías
   console.log("Seeder completado.");
 }
 

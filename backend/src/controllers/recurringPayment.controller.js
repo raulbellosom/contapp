@@ -10,6 +10,7 @@ export const getRecurringPayments = async (req, res) => {
     });
     res.status(200).json(recurringPayments);
   } catch (error) {
+    console.log("Error on getRecurringPayments:", error);
     res.status(500).json({ error: "Error al obtener pagos recurrentes." });
   }
 };
@@ -30,22 +31,15 @@ export const getRecurringPaymentById = async (req, res) => {
       res.status(404).json({ error: "Pago recurrente no encontrado." });
     }
   } catch (error) {
+    console.log("Error on getRecurringPaymentById:", error);
     res.status(500).json({ error: "Error al obtener pago recurrente." });
   }
 };
 
 // Crear un nuevo pago recurrente
 export const createRecurringPayment = async (req, res) => {
-  const {
-    name,
-    amount,
-    type,
-    frequency,
-    startDate,
-    endDate,
-    accountId,
-    categoryId,
-  } = req.body;
+  const { name, amount, frequency, startDate, endDate, accountId, categoryId } =
+    req.body;
   const userId = req.user.id;
 
   try {
@@ -53,10 +47,9 @@ export const createRecurringPayment = async (req, res) => {
       data: {
         name,
         amount,
-        type,
         frequency,
-        startDate,
-        endDate,
+        startDate: new Date(startDate),
+        endDate: endDate ? new Date(endDate) : null,
         accountId,
         categoryId,
         userId,
@@ -64,6 +57,7 @@ export const createRecurringPayment = async (req, res) => {
     });
     res.status(201).json(newRecurringPayment);
   } catch (error) {
+    console.log("Error on createRecurringPayment:", error);
     res.status(500).json({ error: "Error al crear pago recurrente." });
   }
 };
@@ -71,16 +65,8 @@ export const createRecurringPayment = async (req, res) => {
 // Actualizar un pago recurrente existente
 export const updateRecurringPayment = async (req, res) => {
   const { id } = req.params;
-  const {
-    name,
-    amount,
-    type,
-    frequency,
-    startDate,
-    endDate,
-    accountId,
-    categoryId,
-  } = req.body;
+  const { name, amount, frequency, startDate, endDate, accountId, categoryId } =
+    req.body;
 
   try {
     const updatedRecurringPayment = await db.recurringPayment.update({
@@ -88,16 +74,16 @@ export const updateRecurringPayment = async (req, res) => {
       data: {
         name,
         amount,
-        type,
         frequency,
-        startDate,
-        endDate,
+        startDate: new Date(startDate),
+        endDate: endDate ? new Date(endDate) : null,
         accountId,
         categoryId,
       },
     });
     res.status(200).json(updatedRecurringPayment);
   } catch (error) {
+    console.log("Error on updateRecurringPayment:", error);
     res.status(500).json({ error: "Error al actualizar pago recurrente." });
   }
 };
@@ -112,6 +98,7 @@ export const deleteRecurringPayment = async (req, res) => {
     });
     res.status(204).end();
   } catch (error) {
+    console.log("Error on deleteRecurringPayment:", error);
     res.status(500).json({ error: "Error al eliminar pago recurrente." });
   }
 };
