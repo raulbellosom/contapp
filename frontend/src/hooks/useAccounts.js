@@ -8,6 +8,7 @@ import {
   updateAccount,
   deleteAccount,
 } from '../services/main.api';
+import Notifies from '../components/Notifies/Notifies';
 
 export const useAccounts = () => {
   const { state, dispatch } = useContext(AccountContext);
@@ -33,6 +34,10 @@ export const useAccounts = () => {
     onSuccess: (newAccount) => {
       dispatch({ type: 'ADD_ACCOUNT', payload: newAccount });
       queryClient.invalidateQueries({ queryKey: ['accounts'] });
+      Notifies('success', 'Cuenta creada correctamente');
+    },
+    onError: (error) => {
+      Notifies('error', 'Error al crear la cuenta');
     },
   });
 
@@ -42,6 +47,10 @@ export const useAccounts = () => {
     onSuccess: (updatedAccount) => {
       dispatch({ type: 'UPDATE_ACCOUNT', payload: updatedAccount });
       queryClient.invalidateQueries({ queryKey: ['accounts'] });
+      Notifies('success', 'Cuenta actualizada correctamente');
+    },
+    onError: (error) => {
+      Notifies('error', 'Error al actualizar la cuenta');
     },
   });
 
@@ -51,6 +60,10 @@ export const useAccounts = () => {
     onSuccess: (id) => {
       dispatch({ type: 'DELETE_ACCOUNT', payload: id });
       queryClient.invalidateQueries({ queryKey: ['accounts'] });
+      Notifies('success', 'Cuenta eliminada correctamente');
+    },
+    onError: (error) => {
+      Notifies('error', 'Error al eliminar la cuenta');
     },
   });
 

@@ -38,14 +38,16 @@ const Account = () => {
     createNewAccount,
     modifyAccount,
   } = useAccounts();
-
   const { banks } = useBanks();
+
   const [formValues, setFormValues] = useState(InitValues);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedAccount, setSelectedAccount] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showModalRemove, setShowModalRemove] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
   const [sortConfig, setSortConfig] = useState({ key: '', direction: 'asc' });
 
   const filteredAccounts = useMemo(() => {
@@ -68,14 +70,6 @@ const Account = () => {
     });
   }, [accounts, searchTerm]);
 
-  const handleSort = (key) => {
-    let direction = 'asc';
-    if (sortConfig.key === key && sortConfig.direction === 'asc') {
-      direction = 'desc';
-    }
-    setSortConfig({ key, direction });
-  };
-
   const sortedAccounts = useMemo(() => {
     const sorted = [...filteredAccounts];
     if (sortConfig.key) {
@@ -83,7 +77,6 @@ const Account = () => {
         let aValue = a[sortConfig.key];
         let bValue = b[sortConfig.key];
 
-        // Si la columna a ordenar es `type`, usa la etiqueta en español
         if (sortConfig.key === 'type') {
           const aLabel =
             AccountTypesValues.find((type) => type.value === aValue)?.label ||
@@ -102,6 +95,33 @@ const Account = () => {
     }
     return sorted;
   }, [filteredAccounts, sortConfig]);
+
+  const paginatedAccounts = useMemo(() => {
+    const lastIndex = currentPage * itemsPerPage;
+    const firstIndex = lastIndex - itemsPerPage;
+    return sortedAccounts.slice(firstIndex, lastIndex);
+  }, [currentPage, itemsPerPage, sortedAccounts]);
+
+  const totalPages = useMemo(() => {
+    return Math.ceil(filteredAccounts.length / itemsPerPage);
+  }, [filteredAccounts, itemsPerPage]);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const handleSort = (key) => {
+    let direction = 'asc';
+    if (sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const handleItemsPerPageChange = (e) => {
+    setItemsPerPage(Number(e.target.value));
+    setCurrentPage(1);
+  };
 
   const handleDelete = (id) => {
     removeAccount.mutate(id);
@@ -127,7 +147,6 @@ const Account = () => {
     setSearchTerm(e.target.value);
   }, []);
 
-  // Estado de carga y error del fetch
   if (fetchAccounts.isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -143,7 +162,7 @@ const Account = () => {
       </div>
     );
   }
-
+  console.log(formValues);
   return (
     <>
       <div className="container mx-auto w-full">
@@ -171,7 +190,8 @@ const Account = () => {
             handleSearchTerm={handleSearch}
           />
         </div>
-        {filteredAccounts && filteredAccounts?.length > 0 ? (
+
+        {paginatedAccounts && paginatedAccounts?.length > 0 ? (
           <table className="w-full">
             <thead className="bg-contapp-dark text-white w-full">
               <tr className="w-full">
@@ -210,7 +230,7 @@ const Account = () => {
               </tr>
             </thead>
             <tbody>
-              {sortedAccounts.map((account) => (
+              {paginatedAccounts.map((account) => (
                 <tr
                   className="hidden md:table-row md:border-b w-full md:hover:bg-indigo-100 odd:bg-indigo-50 border-b border-b-neutral-100"
                   key={account.id}
@@ -253,7 +273,7 @@ const Account = () => {
                   </td>
                 </tr>
               ))}
-              {filteredAccounts.map((account) => (
+              {paginatedAccounts.map((account) => (
                 <tr className="table-row md:hidden" key={account.id}>
                   <td className="w-fit flex flex-col gap-2 text-xs justify-start items-start p-4">
                     <img
@@ -334,32 +354,75 @@ const Account = () => {
             <p>No se encontraron cuentas.</p>
           </div>
         )}
+        <div className="flex gap-4 flex-col md:flex-row justify-between md:items-center mt-4">
+          <div className="flex justify-start items-center gap-2">
+            <label htmlFor="itemsPerPage" className="text-sm font-medium">
+              Mostrar:
+            </label>
+            <select
+              id="itemsPerPage"
+              value={itemsPerPage}
+              onChange={handleItemsPerPageChange}
+              className="border rounded px-2 py-1 text-sm"
+            >
+              {[5, 10, 20, 30, 50].map((count) => (
+                <option key={count} value={count}>
+                  {count}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex justify-center md:justify-end items-center gap-2">
+            {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+              (page) => (
+                <button
+                  key={page}
+                  onClick={() => handlePageChange(page)}
+                  className={`px-3 py-1 rounded ${
+                    page === currentPage
+                      ? 'bg-contapp-primary text-white'
+                      : 'bg-gray-200'
+                  }`}
+                >
+                  {page}
+                </button>
+              ),
+            )}
+          </div>
+        </div>
       </div>
-      <ModalFormikForm
-        saveLabel={editMode ? 'Actualizar' : 'Crear'}
-        formFields={
-          <AccountFormFields
-            accountTypes={AccountTypesValues}
-            banks={banks}
-            editMode={editMode}
-          />
-        }
-        initialValues={formValues}
-        isOpenModal={showModal}
-        onClose={() => setShowModal(false)}
-        schema={AccountFormSchema}
-        title={editMode ? 'Editar Cuenta' : 'Nueva Cuenta'}
-        size={'xl'}
-        onSubmit={handleSubmit}
-      />
-      <ModalRemove
-        isOpenModal={showModalRemove}
-        onCloseModal={() => {
-          setShowModalRemove(false);
-          setSelectedAccount(null);
-        }}
-        removeFunction={() => handleDelete(selectedAccount)}
-      />
+      {showModal && (
+        <ModalFormikForm
+          saveLabel={editMode ? 'Actualizar' : 'Crear'}
+          formFields={
+            <AccountFormFields
+              accountTypes={AccountTypesValues}
+              banks={banks}
+              editMode={editMode}
+            />
+          }
+          initialValues={formValues}
+          isOpenModal={showModal}
+          onClose={() => {
+            setFormValues(InitValues);
+            setShowModal(false);
+          }}
+          schema={AccountFormSchema}
+          title={editMode ? 'Editar Cuenta' : 'Nueva Cuenta'}
+          size={'xl'}
+          onSubmit={handleSubmit}
+        />
+      )}
+      {showModalRemove && (
+        <ModalRemove
+          isOpenModal={showModalRemove}
+          onCloseModal={() => {
+            setShowModalRemove(false);
+            setSelectedAccount(null);
+          }}
+          removeFunction={() => handleDelete(selectedAccount)}
+        />
+      )}
     </>
   );
 };

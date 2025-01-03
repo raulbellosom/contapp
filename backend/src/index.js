@@ -39,8 +39,8 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/banks", bankRoutes);
 app.use("/api/recurring-payments", recurringPaymentRoutes);
 app.use("/api/ping", pingRoutes);
+app.use("/api/public", express.static(path.join(__dirname, "public")));
 app.use("/api/uploads", express.static(path.join(__dirname, "uploads")));
-app.use("/api", express.static(path.join(__dirname, "public")));
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {

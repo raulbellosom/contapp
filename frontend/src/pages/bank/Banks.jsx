@@ -14,6 +14,7 @@ import { BanksColumns } from '../../utils/TableColumns';
 import ModalRemove from '../../components/Modals/ModalRemove';
 import { FormattedUrlImage } from '../../utils/FormattedUrlImage';
 import { GiArchiveResearch } from 'react-icons/gi';
+import { TiArrowSortedDown } from 'react-icons/ti';
 
 const InitValues = {
   name: '',
@@ -31,7 +32,7 @@ const Banks = () => {
   const [showModal, setShowModal] = useState(false);
   const [showModalRemove, setShowModalRemove] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
   const [sortConfig, setSortConfig] = useState({ key: '', direction: 'asc' });
 
   const filteredBanks = useMemo(() => {
@@ -65,14 +66,6 @@ const Banks = () => {
     return Math.ceil(filteredBanks.length / itemsPerPage);
   }, [filteredBanks, itemsPerPage]);
 
-  const handleSort = (key) => {
-    let direction = 'asc';
-    if (sortConfig.key === key && sortConfig.direction === 'asc') {
-      direction = 'desc';
-    }
-    setSortConfig({ key, direction });
-  };
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -80,6 +73,14 @@ const Banks = () => {
   const handleItemsPerPageChange = (e) => {
     setItemsPerPage(Number(e.target.value));
     setCurrentPage(1);
+  };
+
+  const handleSort = (key) => {
+    let direction = 'asc';
+    if (sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
   };
 
   const handleDelete = (id) => {
@@ -134,23 +135,6 @@ const Banks = () => {
         <div className="py-4">
           <TableActions handleSearchTerm={handleSearch} />
         </div>
-        <div className="mb-4 flex justify-end items-center gap-2">
-          <label htmlFor="itemsPerPage" className="text-sm font-medium">
-            Mostrar:
-          </label>
-          <select
-            id="itemsPerPage"
-            value={itemsPerPage}
-            onChange={handleItemsPerPageChange}
-            className="border rounded px-2 py-1 text-sm"
-          >
-            {[5, 10, 20, 30, 50].map((count) => (
-              <option key={count} value={count}>
-                {count}
-              </option>
-            ))}
-          </select>
-        </div>
         {paginatedBanks.length > 0 ? (
           <table className="w-full">
             <thead className="bg-contapp-dark text-white w-full">
@@ -164,9 +148,27 @@ const Banks = () => {
                 {BanksColumns.map((col, index) => (
                   <th
                     key={index}
-                    className="hidden md:table-cell py-3 px-4 text-left cursor-pointer hover:bg-contapp-primary-light hover:text-white"
+                    onClick={() =>
+                      col.id === 'name'
+                        ? handleSort('name')
+                        : col.id === 'country'
+                          ? handleSort('country')
+                          : null
+                    }
+                    className={`hidden md:table-cell py-3 px-4 text-left cursor-pointer hover:bg-contapp-primary-light hover:text-white ${
+                      sortConfig.key === col.id ? 'font-bold' : ''
+                    }`}
                   >
                     {col.value}
+                    {sortConfig.key === col.id && (
+                      <TiArrowSortedDown
+                        className={`inline ml-1 ${
+                          sortConfig.direction === 'asc'
+                            ? 'rotate-0'
+                            : 'rotate-180'
+                        }`}
+                      />
+                    )}
                   </th>
                 ))}
               </tr>
@@ -262,43 +264,67 @@ const Banks = () => {
             <p>No se encontraron bancos.</p>
           </div>
         )}
-        <div className="flex justify-center items-center mt-4 gap-2">
-          {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-            (page) => (
-              <button
-                key={page}
-                onClick={() => handlePageChange(page)}
-                className={`px-3 py-1 rounded ${
-                  page === currentPage
-                    ? 'bg-contapp-primary text-white'
-                    : 'bg-gray-200'
-                }`}
-              >
-                {page}
-              </button>
-            ),
-          )}
+        <div className="flex gap-4 flex-col md:flex-row justify-between md:items-center mt-4">
+          <div className="flex justify-start items-center gap-2">
+            <label htmlFor="itemsPerPage" className="text-sm font-medium">
+              Mostrar:
+            </label>
+            <select
+              id="itemsPerPage"
+              value={itemsPerPage}
+              onChange={handleItemsPerPageChange}
+              className="border rounded px-2 py-1 text-sm"
+            >
+              {[5, 10, 20, 30, 50].map((count) => (
+                <option key={count} value={count}>
+                  {count}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex justify-center md:justify-end items-center gap-2">
+            {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+              (page) => (
+                <button
+                  key={page}
+                  onClick={() => handlePageChange(page)}
+                  className={`px-3 py-1 rounded ${
+                    page === currentPage
+                      ? 'bg-contapp-primary text-white'
+                      : 'bg-gray-200'
+                  }`}
+                >
+                  {page}
+                </button>
+              ),
+            )}
+          </div>
         </div>
       </div>
-      <ModalFormikForm
-        saveLabel={editMode ? 'Actualizar' : 'Crear'}
-        formFields={<BankFormFields editMode={editMode} />}
-        initialValues={formValues}
-        isOpenModal={showModal}
-        onClose={() => setShowModal(false)}
-        schema={BankFormSchema}
-        title={editMode ? 'Editar Banco' : 'Nuevo Banco'}
-        size={'lg'}
-        onSubmit={handleSubmit}
-      />
-      <ModalRemove
-        isOpenModal={showModalRemove}
-        onCloseModal={() => {
-          setShowModalRemove(false);
-          setSelectedBank(null);
-        }}
-        removeFunction={() => handleDelete(selectedBank)}
-      />
+      {showModal &
+      (
+        <ModalFormikForm
+          saveLabel={editMode ? 'Actualizar' : 'Crear'}
+          formFields={<BankFormFields editMode={editMode} />}
+          initialValues={formValues}
+          isOpenModal={showModal}
+          onClose={() => setShowModal(false)}
+          schema={BankFormSchema}
+          title={editMode ? 'Editar Banco' : 'Nuevo Banco'}
+          size={'lg'}
+          onSubmit={handleSubmit}
+        />
+      )}
+      {showModalRemove && (
+        <ModalRemove
+          isOpenModal={showModalRemove}
+          onCloseModal={() => {
+            setShowModalRemove(false);
+            setSelectedBank(null);
+          }}
+          removeFunction={() => handleDelete(selectedBank)}
+        />
+      )}
     </>
   );
 };

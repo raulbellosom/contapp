@@ -205,6 +205,7 @@ export const getBanks = async () => {
 
 export const getBankById = async (id) => {
   try {
+    console.log(id);
     const { data } = await api.get(`/banks/${id}`);
     return data;
   } catch (error) {
