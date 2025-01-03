@@ -23,8 +23,6 @@ import {
   MdDashboard,
 } from 'react-icons/md';
 import useCheckPermissions from '../../hooks/useCheckPermissions';
-import { TbMapStar } from 'react-icons/tb';
-import { BiSolidContact } from 'react-icons/bi';
 import ActionButtons from '../ActionButtons/ActionButtons';
 
 const themes = {
