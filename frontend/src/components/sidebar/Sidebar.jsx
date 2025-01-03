@@ -16,7 +16,7 @@ import {
 } from 'react-icons/fa';
 import { useAuthContext } from '../../context/AuthContext';
 import AccountSidebar from './AccountSidebar';
-import MainLayout from '@/layout/MainLayout';
+import MainLayout from '../../layout/MainLayout';
 
 import {
   MdAccountBalance,
