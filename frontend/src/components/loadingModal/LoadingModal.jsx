@@ -11,7 +11,7 @@ const LoadingModal = ({ loading }) => {
           visible={true}
           height="100"
           width="100"
-          color="#36e961"
+          color="#ff373d"
           ariaLabel="three-circles-loading"
           wrapperStyle={{}}
           wrapperclassName=""

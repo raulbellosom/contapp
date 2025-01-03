@@ -14,8 +14,6 @@ export const useBanks = () => {
   const { state, dispatch } = useContext(BankContext);
   const queryClient = useQueryClient();
 
-  const banks = state.banks;
-
   // Obtener todos los bancos
   const fetchBanks = useQuery({
     queryKey: ['banks'],
@@ -70,7 +68,7 @@ export const useBanks = () => {
   });
 
   return {
-    banks,
+    banks: state.banks,
     fetchBanks,
     fetchBankById,
     createNewBank,

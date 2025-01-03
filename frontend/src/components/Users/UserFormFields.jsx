@@ -12,7 +12,7 @@ import { PiUserCircleCheckBold } from 'react-icons/pi';
 
 const UserFormFields = ({ roles, editMode }) => {
   return (
-    <div className="grid gap-4 grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))]">
+    <div className="flex flex-col md:grid gap-4 md:grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))]">
       <Field
         name="firstName"
         id="firstName"

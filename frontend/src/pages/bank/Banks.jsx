@@ -24,7 +24,8 @@ const InitValues = {
 };
 
 const Banks = () => {
-  const { banks, removeBank, createNewBank, modifyBank } = useBanks();
+  const { banks, removeBank, createNewBank, modifyBank, fetchBanks } =
+    useBanks();
   const [formValues, setFormValues] = useState(InitValues);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedBank, setSelectedBank] = useState(null);
@@ -103,10 +104,18 @@ const Banks = () => {
     setSearchTerm(e.target.value);
   }, []);
 
-  if (!banks) {
+  if (fetchBanks.isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
         <Spinner size="xl" />
+      </div>
+    );
+  }
+
+  if (fetchBanks.isError) {
+    return (
+      <div className="text-center text-red-500">
+        <p>Error al cargar las cuentas: {fetchBanks.error.message}</p>
       </div>
     );
   }
@@ -135,7 +144,7 @@ const Banks = () => {
         <div className="py-4">
           <TableActions handleSearchTerm={handleSearch} />
         </div>
-        {paginatedBanks.length > 0 ? (
+        {paginatedBanks && paginatedBanks.length > 0 ? (
           <table className="w-full">
             <thead className="bg-contapp-dark text-white w-full">
               <tr className="w-full">
@@ -301,8 +310,7 @@ const Banks = () => {
           </div>
         </div>
       </div>
-      {showModal &
-      (
+      {showModal && (
         <ModalFormikForm
           saveLabel={editMode ? 'Actualizar' : 'Crear'}
           formFields={<BankFormFields editMode={editMode} />}

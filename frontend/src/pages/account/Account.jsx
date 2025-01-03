@@ -162,7 +162,7 @@ const Account = () => {
       </div>
     );
   }
-  console.log(formValues);
+
   return (
     <>
       <div className="container mx-auto w-full">
